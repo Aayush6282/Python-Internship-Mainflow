@@ -1,0 +1,88 @@
+# Reading CSV Files
+    df = pd.read_csv('sample_data.csv')
+
+# Saving DataFrames
+    df_cleaned.to_csv('cleaned_data.csv', index=False)
+
+# Creating database for performing tasks
+    import pandas as pd
+  
+    data = {
+        'Name': ['Alice', 'Bob', 'Charlie', 'David', 'Alice', 'Eve', np.nan],
+        'Age': [25, 30, np.nan, 22, 25, np.nan, 24],
+        'City': ['New York', np.nan, 'San Francisco', 'Chicago', 'New York', 'Los Angeles', 'San Francisco'],
+        'Salary': [70000, 80000, 75000, np.nan, 70000, 90000, np.nan]
+    }
+    
+    # Creating DataFrame
+    df = pd.DataFrame(data)
+    print("Original DataFrame:")
+    print(df)
+
+    # Exploring DataFrames
+        print("First 5 rows:")
+        print(df.head())
+        
+        print("\nDataFrame Info:")
+        print(df.info())
+        
+        print("\nDescriptive Statistics:")
+        print(df.describe())
+
+    # Handling missing values
+
+        print("\nMissing values before handling:")
+        print(df.isnull().sum())
+        
+        # Fill missing values
+        df['Age'].fillna(df['Age'].mean(), inplace=True)
+        df['Salary'].fillna(df['Salary'].mean(), inplace=True)
+        df['City'].fillna('Unknown', inplace=True)
+        
+        print("\nDataFrame after handling missing values:")
+        print(df)
+
+    # Removing duplicates
+
+        df = df.drop_duplicates()  
+        print("\nDataFrame after removing duplicates:")
+        print(df)
+
+    # Verifying data
+
+        print("\nFinal DataFrame verification:")
+        print(df.info())
+        print(df)
+
+    # Filtering Data
+        # 1. Filter by city
+        filtered_by_city = df[df['City'] == 'New York']
+        print("\nFiltered DataFrame (City = 'New York'):")
+        print(filtered_by_city)
+        
+        # 2. Filter by age
+        filtered_by_age = df[df['Age'] > 24]
+        print("\nFiltered DataFrame (Age > 24):")
+        print(filtered_by_age)
+
+    # Sorting Data
+        # 1. Sorting data by salary in descending order
+        sorted_by_salary = df.sort_values(by='Salary', ascending=False)
+        print("\nSorted DataFrame by Salary (descending):")
+        print(sorted_by_salary)
+        
+        # 2. Sort by Name alphabetically
+        sorted_by_name = df.sort_values(by='Name')
+        print("\nSorted DataFrame by Name (alphabetically):")
+        print(sorted_by_name)
+
+    # Grouping Data
+        # 1. Group by City and calculate the average Salary
+        grouped_by_city = df.groupby('City')['Salary'].mean().reset_index()
+        print("\nGrouped DataFrame by City (Average Salary):")
+        print(grouped_by_city)
+        
+        # 2. Group by Age and count the number of people of each age
+        grouped_by_age = df.groupby('Age')['Name'].count().reset_index().rename(columns={'Name': 'Count'})
+        print("\nGrouped DataFrame by Age (Count):")
+        print(grouped_by_age)
